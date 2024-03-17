@@ -3,10 +3,14 @@ import { RES_LIST_URL } from "../utils/constant";
 import { RestaurantCard } from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import useOnlinetStatus from "../utils/useOnlineStatus";
 export const Body = () => {
   const [resList, setResList] = useState([]);
   const [mainResList, setMainResList] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const status = useOnlinetStatus();
+  console.log("status", status);
 
   useEffect(() => {
     fetchResData();
@@ -22,6 +26,10 @@ export const Body = () => {
       res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  if (!status) {
+    return <h1>Looks like you are offline</h1>;
+  }
 
   return resList.length == 0 ? (
     <Shimmer />
