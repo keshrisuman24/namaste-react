@@ -10,7 +10,6 @@ export const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const status = useOnlinetStatus();
-  console.log("status", status);
 
   useEffect(() => {
     fetchResData();
@@ -35,15 +34,16 @@ export const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex">
+        <div className="search m-4 p-4 ">
           <input
             type="text"
-            className="search-input"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
           <button
+            className="px-4 py-1 bg-green-100 m-4  rounded-lg"
             onClick={() => {
               if (searchText) {
                 const filteredRes = mainResList.filter((res) =>
@@ -58,19 +58,21 @@ export const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = resList.filter(
-              (res) => res.info.avgRating > 4.3
-            );
-            setResList(filteredList);
-          }}
-        >
-          Top Rated Restaurant
-        </button>
+        <div className="search m-4 p-4 flex items-center">
+          <button
+            className="px-4 py-1 bg-blue-100 m-4 rounded-lg"
+            onClick={() => {
+              const filteredList = resList.filter(
+                (res) => res.info.avgRating > 4.3
+              );
+              setResList(filteredList);
+            }}
+          >
+            Top Rated Restaurant
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {resList.map((el) => (
           <Link key={el.info.id} to={"/restaurant/" + el.info.id}>
             <RestaurantCard resData={el.info} />

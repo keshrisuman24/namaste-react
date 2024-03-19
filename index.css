@@ -1,4 +1,8 @@
-#heading1 {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #heading1 {
   color: red;
 }
 
@@ -86,4 +90,4 @@
   padding: 10px;
   border: 1px solid black;
   margin-top: 10px;
-}
+} */
