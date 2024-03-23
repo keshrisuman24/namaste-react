@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RES_LIST_URL } from "../utils/constant";
-import { RestaurantCard } from "./RestaurantCard";
+import { RestaurantCard, withPromtedLabel } from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlinetStatus from "../utils/useOnlineStatus";
@@ -10,7 +10,7 @@ export const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const status = useOnlinetStatus();
-
+  const PromtedCard = withPromtedLabel(RestaurantCard);
   useEffect(() => {
     fetchResData();
   }, []);
@@ -75,7 +75,11 @@ export const Body = () => {
       <div className="flex flex-wrap">
         {resList.map((el) => (
           <Link key={el.info.id} to={"/restaurant/" + el.info.id}>
-            <RestaurantCard resData={el.info} />
+            {el.info.avgRating > 4.3 ? (
+              <PromtedCard resData={el.info} />
+            ) : (
+              <RestaurantCard resData={el.info} />
+            )}
           </Link>
         ))}
       </div>
