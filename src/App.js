@@ -8,12 +8,13 @@ import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
-
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const AppLayout = () => {
   //authentication
-  const [ userInfo, setUserInfo ] = useState('');
+  const [userInfo, setUserInfo] = useState("");
   useEffect(() => {
     const data = {
       name: "Suman",
@@ -22,10 +23,12 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </Provider>
   );
 };
 
